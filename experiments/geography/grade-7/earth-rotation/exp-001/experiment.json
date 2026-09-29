@@ -1,0 +1,17 @@
+{
+  "id": "exp-001",
+  "title": "地球自转与昼夜交替",
+  "subject": "geography",
+  "grade": "grade-7",
+  "topic": "earth-rotation",
+  "status": "prototype",
+  "objectives": [
+    "解释不透明球体产生昼夜现象的原因",
+    "通过地点追踪解释地球自转引起昼夜交替",
+    "识别自西向东以及北极上空俯视的逆时针方向",
+    "区分模型地方太阳时与法定时间"
+  ],
+  "durationMinutes": 18,
+  "libraries": [],
+  "createdAt": "2026-09-29T10:17:46.733Z"
+}

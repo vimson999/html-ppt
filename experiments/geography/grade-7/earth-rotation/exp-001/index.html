@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b24">
+  <title>地球自转与昼夜交替 · 地理探索实验室</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="../../../../../index.html"><span class="brand-mark">◎</span><span>地理探索<span class="brand-sub">GEOGRAPHY LAB</span></span></a>
+    <div class="course-tag">七年级 · 地球与地图</div>
+    <p class="sidebar-caption">本次探索 / EXPLORATION 01</p>
+    <nav class="chapters" aria-label="教学环节">
+      <button class="chapter active" data-section="intro" aria-current="step"><span>01</span><div>发现问题<small>从一次跨洋通话开始</small></div></button>
+      <button class="chapter" data-section="explore"><span>02</span><div>动手探索<small>让地球转起来</small></div></button>
+      <button class="chapter" data-section="quiz"><span>03</span><div>挑战一下<small>检验你的发现</small></div></button>
+      <button class="chapter" data-section="recap"><span>04</span><div>带走知识<small>建立你的地理解释</small></div></button>
+    </nav>
+    <div class="mission"><span class="tiny-label">今天的任务</span><p>用地球的运动，<br>解释每天的日出日落。</p><div class="mission-line"></div><small>观察 → 假设 → 验证</small></div>
+    <a class="back-link" href="../../../../../index.html">↖ 返回课件实验台</a>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div><span class="live-dot"></span>互动课堂 <span class="slash">/</span> 地球的运动</div><div class="top-actions"><span class="lesson-length">建议 15–20 分钟</span><button id="teacher" class="quiet-button">教学提示</button><button id="fullscreen" class="quiet-button">⛶ 全屏</button></div></header>
+    <main>
+      <section class="lesson-heading"><div><p class="eyebrow">OUR ROTATING PLANET <span>01 / 地球自转</span></p><h1>地球自转与<span>昼夜交替</span></h1><p id="section-subtitle">同一时刻，为什么我们迎着阳光，地球另一边却已是深夜？</p></div><span class="lesson-badge">探索式学习</span></section>
+      <div class="lab-grid">
+        <section class="globe-card" aria-label="地球互动模型">
+          <div class="scene-top"><div><span class="live-dot"></span>地球观察站 <span class="scene-small">LIVE MODEL</span></div><span id="motion-status">自转已暂停</span></div>
+          <div class="canvas-wrap"><canvas id="globe" tabindex="0" role="img" aria-label="可交互的地球昼夜模型。拖动或按方向键调整观察视角；下方按钮控制自转，右侧查看地点昼夜状态。"></canvas><div class="scene-legend"><span><i class="day-dot"></i>昼半球</span><span><i class="night-dot"></i>夜半球</span><span><i class="line-dot"></i>晨昏线</span></div><div class="drag-hint">↔ 拖动改变视角 <span>·</span> 方向键也可操作</div><div id="loading" role="status">正在准备地球模型…</div></div>
+          <div class="view-toolbar"><div class="view-buttons" aria-label="观察视角"><button id="view-default" class="selected" aria-pressed="true">斜侧观察</button><button id="view-north" aria-pressed="false">北极上空</button><button id="view-city" aria-pressed="false">面向地点</button></div><label class="grid-toggle"><input id="show-grid" type="checkbox" checked>经纬网</label></div>
+          <div class="playback"><button id="play" class="play-button" aria-label="播放自转">▶ <span>播放自转</span></button><label class="speed-label">速度 <select id="speed"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option></select></label><button id="reset" class="reset-button">↺ 重置</button><span class="rotation-caption">自西向东 <span>·</span> 约 24 小时一周</span></div>
+        </section>
+        <aside class="observation-card">
+          <div class="panel-heading"><span class="tiny-label">OBSERVATION</span><h2>追踪一个地点</h2><p>看看它怎样走过一天。</p></div>
+          <label class="field-label" for="city">观察地点</label><select id="city"><option value="beijing">北京 · 中国</option><option value="london">伦敦 · 英国</option><option value="new-york">纽约 · 美国</option><option value="sydney">悉尼 · 澳大利亚</option><option value="quito">基多 · 厄瓜多尔</option></select>
+          <div class="city-coordinates" id="coordinates"></div>
+          <div class="time-readout"><div><span class="field-label">模型地方太阳时</span><strong id="local-time">12:00</strong></div><span id="day-state" class="day-state">☀ 白昼</span></div>
+          <div class="day-track"><span id="day-marker"></span></div><div class="track-labels"><span>0 时</span><span>6 时</span><span>12 时</span><span>18 时</span><span>24 时</span></div>
+          <label class="field-label time-label" for="time">拖动时间，观察昼夜变化</label><input id="time" type="range" min="0" max="24" step="0.05" value="12" aria-label="地点的模型地方太阳时">
+          <div class="time-presets"><button data-hour="6">日出</button><button data-hour="12">正午</button><button data-hour="18">日落</button><button data-hour="0">午夜</button></div>
+          <div class="finding"><span class="finding-icon">✦</span><div><strong id="finding-title">此刻，这里朝向太阳</strong><p id="finding-text">太阳光照亮这一侧，所在地点处于昼半球。</p></div></div>
+          <p class="time-footnote">这里显示地方太阳时，并非北京时间等法定时间。日出、日落时刻适用于本课简化模型。</p>
+        </aside>
+      </div>
+      <section class="learning-panel" id="learning-panel" aria-labelledby="activity-title">
+        <div class="activity-heading"><span class="activity-number" id="activity-number">01</span><div><p class="tiny-label" id="activity-label">想一想 · 再验证</p><h2 id="activity-title">太阳真的“下班”了吗？</h2></div><span class="activity-time" id="activity-time">讨论 2 分钟</span></div>
+        <div id="intro-content" class="section-content"><p>北京的午间，一位同学给纽约的朋友打电话，对方却说：“这里还是深夜！”<br>太阳明明一直在发光，为什么他们看到的天空不同？</p><div class="intro-actions"><button class="primary-button" id="start-explore">带着问题，开始探索 <span>→</span></button><button class="text-button" id="reveal" aria-expanded="false">先说出你的猜想</button></div><p id="hypothesis" class="answer-note" hidden>提示：地球是一个不透明的球体，太阳只能照亮它的一半。再想想：是什么让同一个地点先后经历白昼和黑夜？</p></div>
+        <div id="explore-content" class="section-content" hidden><div class="task-grid"><button class="task" data-task="day"><span>01 / 看明暗</span><strong>同一时刻，两种天空</strong><p>回到北京正午，再切换纽约。比较两个地点的昼夜。</p><small>点击设置观察场景 ↗</small></button><button class="task" data-task="sunset"><span>02 / 看变化</span><strong>跟随北京进入黑夜</strong><p>从日落前开始播放。它正从亮的一侧转向哪里？</p><small>点击设置观察场景 ↗</small></button><button class="task" data-task="north"><span>03 / 看方向</span><strong>站到北极上空</strong><p>播放并跟随地点标记，看自转是顺时针还是逆时针。</p><small>点击设置观察场景 ↗</small></button></div><p class="answer-note" id="task-feedback" role="status">每次先预测，再操作；拖动地球只改变你的视角，不会改变模型时间。</p></div>
+        <div id="quiz-content" class="section-content" hidden><div class="quiz-progress"><span id="quiz-position">问题 1 / 3</span><span id="quiz-score">已答对 0 题</span></div><h3 id="quiz-question"></h3><div id="quiz-options"></div><p id="quiz-feedback" role="status"></p><button id="quiz-next" class="primary-button" hidden>下一题 →</button><button id="quiz-restart" class="text-button" hidden>重新挑战</button></div>
+        <div id="recap-content" class="section-content" hidden><div class="recap-grid"><article><span>01</span><h3>为什么有昼夜？</h3><p>地球是不透明的球体。朝向太阳的一半是白昼，背向太阳的一半是黑夜。</p></article><article><span>02</span><h3>为什么会交替？</h3><p>地球不停自转，一个地点随之进入昼半球和夜半球，形成昼夜交替。</p></article><article><span>03</span><h3>地球怎样自转？</h3><p>绕地轴自西向东转动；从北极上空看呈逆时针，昼夜交替周期约为 24 小时。</p></article></div><div class="exit-ticket"><strong>离堂小任务</strong><p>用手电筒和球模拟昼夜，向同桌解释：“有昼夜”和“昼夜交替”分别需要什么条件？</p></div></div>
+      </section>
+      <footer class="lesson-footer"><span>模型说明：太阳光平行入射、直射赤道；忽略公转、大气折射与季节变化。尺寸与速度不按比例。</span><button id="sources" class="text-button">资料与来源 ↗</button></footer>
+      <p id="message" role="status"></p>
+    </main>
+  </div>
+  <dialog id="info-dialog"><div class="dialog-header"><h2 id="dialog-title"></h2><button id="close-dialog" class="quiet-button" aria-label="关闭弹窗">✕</button></div><div id="dialog-body"></div></dialog>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
