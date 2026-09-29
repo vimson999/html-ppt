@@ -1,0 +1,13 @@
+:root {
+  color-scheme: light;
+  --color-bg: #f3f6fa;
+  --color-surface: #fff;
+  --color-text: #192c40;
+  --color-muted: #536477;
+  --color-accent: #1659bd;
+  --color-border: #d5dfeb;
+  --font-body: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --radius: 16px;
+  --space: 8px;
+  --content-width: 1120px;
+}

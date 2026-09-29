@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>互动课件实验台</title>
+  <link rel="stylesheet" href="./shared/styles/base.css">
+  <style>
+    header { margin-bottom: 36px; }
+    h1 { font-size: clamp(30px, 5vw, 48px); margin-bottom: 16px; }
+    #search { width: 100%; margin: 8px 0 24px; }
+    #experiments { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px; }
+    .tag { font-size: 14px; color: var(--color-muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="muted">HTML · 互动教学 · 实验记录</p>
+      <h1>互动课件实验台</h1>
+      <p>在不同学科、年级与知识点之间，探索可操作、可观察、可讨论的课堂。</p>
+    </header>
+    <label for="search">查找实验</label>
+    <input id="search" type="search" placeholder="搜索名称、学科、年级或知识点">
+    <p id="status" class="muted" role="status">正在读取实验目录…</p>
+    <div id="experiments"></div>
+    <section id="empty" class="panel" hidden>
+      <h2>从第一个教学实验开始</h2>
+      <p>每次实验都有独立目录，共用设计和工具集中维护。</p>
+      <p>在终端创建实验：</p>
+      <code>npm run new -- --subject geography --grade grade-7 --topic earth-rotation --name 地球自转初探</code>
+    </section>
+  </main>
+  <script type="module" src="./catalog/main.js"></script>
+</body>
+</html>

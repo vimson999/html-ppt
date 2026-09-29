@@ -1,0 +1,3 @@
+/* 本实验专用样式；可覆盖共享设计变量。 */
+header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin: 24px 0; }
+#stage { min-height: 240px; }
