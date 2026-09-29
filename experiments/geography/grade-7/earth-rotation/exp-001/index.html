@@ -9,7 +9,7 @@
 </head>
 <body>
   <aside class="sidebar">
-    <a class="brand" href="../../../../../index.html"><span class="brand-mark">◎</span><span>地理探索<span class="brand-sub">GEOGRAPHY LAB</span></span></a>
+    <a class="brand" href="../../../../../case.html?id=geography%2Fgrade-7%2Fearth-rotation%2Fexp-001"><span class="brand-mark">◎</span><span>地理探索<span class="brand-sub">GEOGRAPHY LAB</span></span></a>
     <div class="course-tag">七年级 · 地球与地图</div>
     <p class="sidebar-caption">本次探索 / EXPLORATION 01</p>
     <nav class="chapters" aria-label="教学环节">
@@ -19,7 +19,7 @@
       <button class="chapter" data-section="recap"><span>04</span><div>带走知识<small>建立你的地理解释</small></div></button>
     </nav>
     <div class="mission"><span class="tiny-label">今天的任务</span><p>用地球的运动，<br>解释每天的日出日落。</p><div class="mission-line"></div><small>观察 → 假设 → 验证</small></div>
-    <a class="back-link" href="../../../../../index.html">↖ 返回课件实验台</a>
+    <a class="back-link" href="../../../../../case.html?id=geography%2Fgrade-7%2Fearth-rotation%2Fexp-001">↖ 返回案例详情</a>
   </aside>
   <div class="workspace">
     <header class="topbar"><div><span class="live-dot"></span>互动课堂 <span class="slash">/</span> 地球的运动</div><div class="top-actions"><span class="lesson-length">建议 15–20 分钟</span><button id="teacher" class="quiet-button">教学提示</button><button id="fullscreen" class="quiet-button">⛶ 全屏</button></div></header>
@@ -51,11 +51,12 @@
         <div id="quiz-content" class="section-content" hidden><div class="quiz-progress"><span id="quiz-position">问题 1 / 3</span><span id="quiz-score">已答对 0 题</span></div><h3 id="quiz-question"></h3><div id="quiz-options"></div><p id="quiz-feedback" role="status"></p><button id="quiz-next" class="primary-button" hidden>下一题 →</button><button id="quiz-restart" class="text-button" hidden>重新挑战</button></div>
         <div id="recap-content" class="section-content" hidden><div class="recap-grid"><article><span>01</span><h3>为什么有昼夜？</h3><p>地球是不透明的球体。朝向太阳的一半是白昼，背向太阳的一半是黑夜。</p></article><article><span>02</span><h3>为什么会交替？</h3><p>地球不停自转，一个地点随之进入昼半球和夜半球，形成昼夜交替。</p></article><article><span>03</span><h3>地球怎样自转？</h3><p>绕地轴自西向东转动；从北极上空看呈逆时针，昼夜交替周期约为 24 小时。</p></article></div><div class="exit-ticket"><strong>离堂小任务</strong><p>用手电筒和球模拟昼夜，向同桌解释：“有昼夜”和“昼夜交替”分别需要什么条件？</p></div></div>
       </section>
-      <footer class="lesson-footer"><span>模型说明：太阳光平行入射、直射赤道；忽略公转、大气折射与季节变化。尺寸与速度不按比例。</span><button id="sources" class="text-button">资料与来源 ↗</button></footer>
+      <footer class="lesson-footer"><span>模型说明：太阳光平行入射、直射赤道；忽略公转、大气折射与季节变化。尺寸与速度不按比例。</span><a id="renderer-switch" class="text-button" href="?renderer=2d">二维兼容模式</a><button id="sources" class="text-button">资料与来源 ↗</button></footer>
       <p id="message" role="status"></p>
     </main>
   </div>
   <dialog id="info-dialog"><div class="dialog-header"><h2 id="dialog-title"></h2><button id="close-dialog" class="quiet-button" aria-label="关闭弹窗">✕</button></div><div id="dialog-body"></div></dialog>
+  <script src="../../../../../shared/vendor/gsap/3.15.0/gsap.min.js"></script>
   <script type="module" src="./main.js"></script>
 </body>
 </html>

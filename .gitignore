@@ -4,5 +4,6 @@ node_modules/
 .env.*
 !.env.example
 dist/
+downloads/
 coverage/
 *.log

@@ -1,9 +1,13 @@
 import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { collectCases, caseFiles } from './case-library.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const records = JSON.parse(await readFile(path.join(root, 'catalog/experiments.json'), 'utf8'));
+const current = await collectCases();
+if (JSON.stringify(records) !== JSON.stringify(current)) throw new Error('目录未同步，请运行 npm run catalog 或 npm run build。');
+for (const item of current) await caseFiles(item);
 const seen = new Set();
 for (const record of records) {
   for (const key of ['subject', 'grade', 'topic']) {

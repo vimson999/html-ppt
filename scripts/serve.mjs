@@ -3,7 +3,12 @@ import { readFile, realpath, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = await realpath(fileURLToPath(new URL('../', import.meta.url)));
+const argumentsList = process.argv.slice(2);
+const portIndex = argumentsList.indexOf('--port');
+const rootIndex = argumentsList.indexOf('--root');
+const port = Number(portIndex >= 0 ? argumentsList[portIndex + 1] : process.env.PORT ?? 5173);
+if (!Number.isInteger(port) || port < 0 || port > 65535) throw new Error('端口无效');
+const root = await realpath(rootIndex >= 0 ? argumentsList[rootIndex + 1] : fileURLToPath(new URL('../', import.meta.url)));
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.mp4': 'video/mp4', '.mp3': 'audio/mpeg', '.woff2': 'font/woff2', '.wasm': 'application/wasm' };
 const server = http.createServer(async (req, res) => {
   if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405); res.end(); return; }
@@ -25,4 +30,4 @@ const server = http.createServer(async (req, res) => {
   }
 });
 server.on('error', error => { console.error(error.message); process.exitCode = 1; });
-server.listen(Number(process.env.PORT ?? 5173), '127.0.0.1', () => console.log(`实验台：http://localhost:${server.address().port}`));
+server.listen(port, '127.0.0.1', () => console.log(`实验台：http://localhost:${server.address().port}`));

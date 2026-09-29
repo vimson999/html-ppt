@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "name": "three",
+    "version": "0.186.1",
+    "license": "MIT",
+    "source": "https://github.com/mrdoob/three.js/tree/r186",
+    "path": "shared/vendor/three/0.186.1",
+    "files": ["three.module.js", "three.core.js", "LICENSE"],
+    "packageFiles": {"build/three.module.js": "three.module.js", "build/three.core.js": "three.core.js", "LICENSE": "LICENSE"}
+  },
+  {
+    "name": "gsap",
+    "version": "3.15.0",
+    "license": "GSAP Standard License",
+    "source": "https://gsap.com/standard-license/",
+    "path": "shared/vendor/gsap/3.15.0",
+    "files": ["gsap.min.js", "gsap.min.js.map", "LICENSE.html", "NOTICE.md"],
+    "packageFiles": {"dist/gsap.min.js": "gsap.min.js", "dist/gsap.min.js.map": "gsap.min.js.map"}
+  }
+]

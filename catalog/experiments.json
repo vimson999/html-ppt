@@ -4,6 +4,71 @@
     "title": "地球自转与昼夜交替",
     "subject": "geography",
     "grade": "grade-7",
-    "topic": "earth-rotation"
+    "topic": "earth-rotation",
+    "status": "prototype",
+    "version": "2.0.0",
+    "summary": "从太空观察地球，追踪一座城市走过白昼与黑夜。用可操作的三维模型，把抽象的地球运动变成一次看得见的发现。",
+    "cover": "assets/cover.png",
+    "scenario": "新授课 · 互动探究",
+    "interactions": [
+      "三维探索",
+      "时间模拟",
+      "随堂练习"
+    ],
+    "tags": [
+      "地球运动",
+      "昼夜交替",
+      "自转方向",
+      "地方太阳时"
+    ],
+    "requirements": "建议电脑投屏或平板操作；现代浏览器支持 WebGL2 时呈现三维效果，不支持时可进入二维兼容模式。离线包需要 Node.js 20+ 本地服务，无需安装 npm 依赖。",
+    "textbook": "通用知识方案，未绑定特定教材版本；教师可按所在教材调整。",
+    "steps": [
+      {
+        "title": "发现问题",
+        "minutes": 2,
+        "description": "从北京午间与纽约深夜的跨洋通话提出猜想。"
+      },
+      {
+        "title": "动手探索",
+        "minutes": 8,
+        "description": "追踪地点经过晨昏线，再从北极上空判断自转方向。"
+      },
+      {
+        "title": "挑战一下",
+        "minutes": 4,
+        "description": "通过三道即时反馈题，把观察转化为解释。"
+      },
+      {
+        "title": "带走知识",
+        "minutes": 4,
+        "description": "区分昼夜现象与昼夜交替，用手电筒和球复述成因。"
+      }
+    ],
+    "objectives": [
+      "解释不透明球体产生昼夜现象的原因",
+      "通过地点追踪解释地球自转引起昼夜交替",
+      "识别自西向东以及北极上空俯视的逆时针方向",
+      "区分模型地方太阳时与法定时间"
+    ],
+    "durationMinutes": 18,
+    "libraries": [
+      {
+        "name": "three",
+        "version": "0.186.1"
+      },
+      {
+        "name": "gsap",
+        "version": "3.15.0"
+      }
+    ],
+    "sharedAssets": [
+      "shared/styles/tokens.css",
+      "shared/js/classroom.js"
+    ],
+    "createdAt": "2026-09-29T10:17:46.733Z",
+    "key": "geography/grade-7/earth-rotation/exp-001",
+    "path": "experiments/geography/grade-7/earth-rotation/exp-001",
+    "download": "downloads/geography--grade-7--earth-rotation--exp-001.zip"
   }
 ]

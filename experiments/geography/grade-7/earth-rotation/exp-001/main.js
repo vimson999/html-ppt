@@ -1,5 +1,4 @@
 import { toggleFullscreen } from '../../../../../shared/js/classroom.js';
-import { Globe } from './globe.js';
 import { CITIES, RAD, TAU, rotationForHour, solarHour, phaseAt, wrap } from './model.js';
 
 const $ = selector => document.querySelector(selector);
@@ -11,6 +10,8 @@ let lastTime = 0;
 let lastRender = 0;
 let activeView = 'default';
 let pendingFrame = 0;
+const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+let cameraTween;
 const requestRender = () => { dirty = true; if (!pendingFrame) pendingFrame = requestAnimationFrame(frame); };
 
 const phaseCopy = {
@@ -58,11 +59,18 @@ function setPlaying(playing) {
   $('#motion-status').textContent = playing ? `正在自转 · ${state.speed}×` : '自转已暂停';
   requestRender();
 }
-function setView(view) {
+function setView(view, instant = false) {
   activeView = view;
-  if (view === 'default') { state.yaw = .8; state.pitch = .18; }
-  if (view === 'north') { state.yaw = Math.PI / 2; state.pitch = Math.PI / 2; }
-  if (view === 'city') { state.yaw = state.city.lon * RAD + state.rotation; state.pitch = state.city.lat * RAD; }
+  cameraTween?.kill();
+  let target;
+  if (view === 'default') target = { yaw: .8, pitch: .18 };
+  if (view === 'north') target = { yaw: Math.PI / 2, pitch: Math.PI / 2 };
+  if (view === 'city') target = { yaw: state.city.lon * RAD + state.rotation, pitch: state.city.lat * RAD };
+  if (target) {
+    target.yaw = state.yaw + wrap(target.yaw - state.yaw + Math.PI, TAU) - Math.PI;
+    if (instant || motionPreference.matches || !window.gsap) Object.assign(state, target);
+    else cameraTween = window.gsap.to(state, { ...target, duration: 1.15, ease: 'power2.inOut', onUpdate: requestRender });
+  }
   $$('.view-buttons button').forEach(button => {
     const selected = button.id === `view-${view}`;
     button.classList.toggle('selected', selected); button.setAttribute('aria-pressed', selected);
@@ -89,11 +97,13 @@ for (const view of ['default', 'north', 'city']) $(`#view-${view}`).addEventList
 $('#reset').addEventListener('click', () => {
   state.city = CITIES.beijing; state.speed = 1; state.grid = true;
   $('#city').value = 'beijing'; $('#speed').value = '1'; $('#show-grid').checked = true;
-  setView('default'); setHour(12);
+  setView('default', true); setHour(12);
   $('#message').textContent = '模型已重置：北京正午、斜侧视角、自转暂停。';
 });
+function bindCanvas() {
 let drag;
 $('#globe').addEventListener('pointerdown', event => {
+  cameraTween?.kill();
   drag = { x: event.clientX, y: event.clientY, yaw: state.yaw, pitch: state.pitch };
   $('#globe').setPointerCapture(event.pointerId);
 });
@@ -114,6 +124,7 @@ $('#globe').addEventListener('keydown', event => {
   setView('custom');
 });
 new ResizeObserver(requestRender).observe($('#globe'));
+}
 document.addEventListener('visibilitychange', () => { if (document.hidden) setPlaying(false); });
 $('#fullscreen').addEventListener('click', async () => {
   try { await toggleFullscreen(); $('#message').textContent = ''; }
@@ -145,11 +156,11 @@ $('#start-explore').addEventListener('click', () => showSection('explore'));
 $('#reveal').addEventListener('click', () => { $('#hypothesis').hidden = !$('#hypothesis').hidden; $('#reveal').setAttribute('aria-expanded', !$('#hypothesis').hidden); });
 $$('[data-task]').forEach(button => button.addEventListener('click', () => {
   state.city = CITIES.beijing; $('#city').value = 'beijing';
-  setView('default'); setHour(12);
+  setView('default', true); setHour(12);
   $$('.task').forEach(task => task.classList.toggle('done', task === button));
   const task = button.dataset.task;
   if (task === 'day') $('#task-feedback').textContent = '已回到北京正午。将右侧观察地点切换为纽约：模型时间没有推进，为什么昼夜状态不同？';
-  if (task === 'sunset') { setHour(17); state.yaw = 1.5; requestRender(); $('#task-feedback').textContent = '已到北京地方太阳时 17:00。先预测，再点击“播放自转”，观察北京经过昏线。'; }
+  if (task === 'sunset') { setHour(17); state.yaw = 1.5; setView('custom'); requestRender(); $('#task-feedback').textContent = '已到北京地方太阳时 17:00。先预测，再点击“播放自转”，观察北京经过昏线。'; }
   if (task === 'north') { setView('north'); $('#task-feedback').textContent = '现在从北极正上方俯视。点击“播放自转”，跟随北京的亮点，判断旋转方向。'; }
   $('.globe-card').scrollIntoView({ behavior: 'instant', block: 'nearest' });
 }));
@@ -199,7 +210,31 @@ $('#close-dialog').addEventListener('click', () => $('#info-dialog').close());
 try {
   const response = await fetch(new URL('./data/land.geojson', import.meta.url));
   if (!response.ok) throw new Error(`陆地数据加载失败（${response.status}）`);
-  globe = new Globe($('#globe'), await response.json());
+  const land = await response.json();
+  const requested2d = new URLSearchParams(location.search).get('renderer') === '2d';
+  let supports3d = false;
+  if (!requested2d) {
+    const probe = document.createElement('canvas').getContext('webgl2');
+    supports3d = Boolean(probe);
+    probe?.getExtension('WEBGL_lose_context')?.loseContext();
+  }
+  if (supports3d) {
+    try {
+      const { ThreeGlobe } = await import('./globe-three.js');
+      globe = new ThreeGlobe($('#globe'), land);
+    } catch (error) {
+      // A WebGL context cannot subsequently become a 2D context. Replace before binding input.
+      const freshCanvas = $('#globe').cloneNode(); $('#globe').replaceWith(freshCanvas);
+      $('#message').textContent = '三维模式暂不可用，已使用二维兼容模式。';
+    }
+  }
+  if (!globe) {
+    const { Globe } = await import('./globe.js');
+    globe = new Globe($('#globe'), land); $('#globe').dataset.renderer = 'canvas';
+    $('#renderer-switch').textContent = '尝试三维模式'; $('#renderer-switch').href = '?renderer=3d';
+    if (!requested2d) $('#message').textContent = '当前设备未能启用三维模式，已切换二维兼容模式，教学功能仍可使用。';
+  }
+  bindCanvas();
   $('#loading').hidden = true;
   requestRender();
 } catch (error) {

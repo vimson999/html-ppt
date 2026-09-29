@@ -3,34 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>互动课件实验台</title>
-  <link rel="stylesheet" href="./shared/styles/base.css">
-  <style>
-    header { margin-bottom: 36px; }
-    h1 { font-size: clamp(30px, 5vw, 48px); margin-bottom: 16px; }
-    #search { width: 100%; margin: 8px 0 24px; }
-    #experiments { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px; }
-    .tag { font-size: 14px; color: var(--color-muted); }
-  </style>
+  <meta name="theme-color" content="#f5f4ef">
+  <title>课件实验室 · 让知识可以探索</title>
+  <link rel="stylesheet" href="./platform/style.css">
 </head>
 <body>
-  <main>
-    <header>
-      <p class="muted">HTML · 互动教学 · 实验记录</p>
-      <h1>互动课件实验台</h1>
-      <p>在不同学科、年级与知识点之间，探索可操作、可观察、可讨论的课堂。</p>
-    </header>
-    <label for="search">查找实验</label>
-    <input id="search" type="search" placeholder="搜索名称、学科、年级或知识点">
-    <p id="status" class="muted" role="status">正在读取实验目录…</p>
-    <div id="experiments"></div>
-    <section id="empty" class="panel" hidden>
-      <h2>从第一个教学实验开始</h2>
-      <p>每次实验都有独立目录，共用设计和工具集中维护。</p>
-      <p>在终端创建实验：</p>
-      <code>npm run new -- --subject geography --grade grade-7 --topic earth-rotation --name 地球自转初探</code>
-    </section>
-  </main>
-  <script type="module" src="./catalog/main.js"></script>
+  <header class="site-header"><a class="logo" href="./index.html"><span class="logo-symbol">◈</span><span>课件实验室<small>CLASSROOM LAB</small></span></a><nav aria-label="主导航"><a class="nav-active" href="./index.html">案例中心</a><a href="#guide">制作指南 ↗</a></nav><span class="header-note"><i></i> 给教学，多一种可能</span></header>
+  <main class="site-main">
+    <section class="hero"><div class="hero-copy"><p class="overline"><span></span> A PLAYGROUND FOR LEARNING</p><h1>让知识，<br>变得<span class="serif-word">可以探索。</span></h1><p class="hero-description">把抽象的概念，变成一次看得见的发现。<br>为不同学科与年级，探索沉浸、互动的课堂体验。</p><a class="button dark" href="#library">探索课件案例 <span>↗</span></a><div class="hero-values"><span>交互式学习</span><span>独立运行</span><span>打包带走</span></div></div><div id="featured" class="featured" aria-label="精选案例"><p class="loading-note">正在准备精选案例…</p></div></section>
+    <section class="library" id="library" aria-labelledby="library-title"><div class="section-heading"><div><p class="overline">THE COLLECTION</p><h2 id="library-title">每一个知识点，都是新世界。</h2></div><p id="collection-count">正在载入案例</p></div><div class="filter-bar"><label class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" aria-label="搜索课件" placeholder="搜索课题、知识点或关键词…"></label><label class="filter-field"><span>学科</span><select id="subject"><option value="">全部学科</option></select></label><label class="filter-field"><span>年级</span><select id="grade"><option value="">全部年级</option></select></label><label class="filter-field"><span>互动方式</span><select id="interaction"><option value="">全部方式</option></select></label></div><div class="results-heading"><p id="status" role="status">正在读取案例…</p><button id="clear-filters" class="text-button" hidden>清除筛选 ×</button></div><div id="experiments" class="case-grid"></div><div id="empty" class="empty-state" hidden><span>⌕</span><h3>还没有找到这个知识点</h3><p>换个关键词，或清除筛选条件再试试。</p><button id="empty-clear" class="button outline">查看全部案例</button></div></section>
+    <section class="creation-guide" id="guide"><div><p class="overline">FROM AN IDEA TO A CLASSROOM</p><h2>下一次探索，从你的课堂开始。</h2><p>带来一个主题，或一个学生总是难以理解的问题。</p></div><details><summary>准备哪些信息？ <span>＋</span></summary><ol><li>学科、年级与主题，或希望我们帮助选题的范围。</li><li>使用场景、操作者，以及预计课时。</li><li>学习目标、教材章节或参考材料。</li><li>期待的互动效果、教室设备和离线要求。</li></ol><p>先形成教学环节与互动方案，再制作独立案例，验证后加入这里。</p></details></section>
+  </main><footer class="site-footer"><span>◈ 课件实验室</span><p>从观察到理解，从课堂到探索。</p><small>HTML INTERACTIVE COURSEWARE</small></footer>
+  <script type="module" src="./platform/browse.js"></script>
 </body>
 </html>
